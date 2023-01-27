@@ -1,0 +1,251 @@
+[
+    {
+        "id": "8526adae46c184e3",
+        "type": "mqtt in",
+        "z": "8d09798f4c222e70",
+        "name": "MQTT sub",
+        "topic": "ESIEA/grpMash",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "28cb063d7c16008a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 460,
+        "y": 420,
+        "wires": [
+            [
+                "63d849d6a33338d4",
+                "1846ee4c87b5e48e",
+                "602a851a654aa65a"
+            ]
+        ]
+    },
+    {
+        "id": "3c015a75de402ebd",
+        "type": "ui_gauge",
+        "z": "8d09798f4c222e70",
+        "name": "",
+        "group": "b29b820e687a4c50",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{msg.payload.Temperature}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "25",
+        "seg2": "35",
+        "diff": false,
+        "className": "",
+        "x": 950,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "1846ee4c87b5e48e",
+        "type": "json",
+        "z": "8d09798f4c222e70",
+        "name": "",
+        "property": "payload.Temperature",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 480,
+        "wires": [
+            [
+                "3c015a75de402ebd"
+            ]
+        ]
+    },
+    {
+        "id": "63d849d6a33338d4",
+        "type": "json",
+        "z": "8d09798f4c222e70",
+        "name": "",
+        "property": "payload.Humidity",
+        "action": "",
+        "pretty": false,
+        "x": 690,
+        "y": 420,
+        "wires": [
+            [
+                "c28054aa05b2930f"
+            ]
+        ]
+    },
+    {
+        "id": "c28054aa05b2930f",
+        "type": "ui_gauge",
+        "z": "8d09798f4c222e70",
+        "name": "",
+        "group": "b29b820e687a4c50",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{msg.payload.Humidity}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "50",
+        "seg2": "80",
+        "diff": false,
+        "className": "",
+        "x": 940,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "c4228ff3cec308e8",
+        "type": "debug",
+        "z": "8d09798f4c222e70",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "602a851a654aa65a",
+        "type": "function",
+        "z": "8d09798f4c222e70",
+        "name": "function 1",
+        "func": "\nconst data = {\n            metrics:[{\n                    name: \"Humidity\",\n                    floatValue: msg.payload.Humidity\n                },\n                {\n                    name : \"Temperature\",\n                    floatValue: msg.payload.Temperature\n                }\n            ]\n        }\n\nmsg.payload = data;\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 640,
+        "wires": [
+            [
+                "c4228ff3cec308e8",
+                "5edd2b6baae6d635"
+            ]
+        ]
+    },
+    {
+        "id": "aad8c5b7ca62da53",
+        "type": "mqtt out",
+        "z": "8d09798f4c222e70",
+        "name": "TEST",
+        "topic": "spBv1.0/ESIEA/DDATA/raspberry/device_grpMASH",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "28cb063d7c16008a",
+        "x": 1270,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "5edd2b6baae6d635",
+        "type": "encode",
+        "z": "8d09798f4c222e70",
+        "name": "",
+        "protofile": "9c80855864fb1005",
+        "protoType": "Payload",
+        "x": 860,
+        "y": 860,
+        "wires": [
+            [
+                "dde74ac82b3e4f00",
+                "aad8c5b7ca62da53"
+            ]
+        ]
+    },
+    {
+        "id": "dde74ac82b3e4f00",
+        "type": "decode",
+        "z": "8d09798f4c222e70",
+        "name": "",
+        "protofile": "9c80855864fb1005",
+        "protoType": "Payload",
+        "x": 1060,
+        "y": 760,
+        "wires": [
+            [
+                "c4228ff3cec308e8"
+            ]
+        ]
+    },
+    {
+        "id": "28cb063d7c16008a",
+        "type": "mqtt-broker",
+        "name": "ESIEA",
+        "broker": "10.8.128.250",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "b29b820e687a4c50",
+        "type": "ui_group",
+        "name": "ESP8266",
+        "tab": "80615ad866673a04",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "9c80855864fb1005",
+        "type": "protobuf-file",
+        "protopath": "C:\\Users\\youss\\OneDrive\\Bureau\\Cours_2022-2023\\MAtiere pourrie\\sparkplug_b.proto",
+        "watchFile": true,
+        "keepCase": false
+    },
+    {
+        "id": "80615ad866673a04",
+        "type": "ui_tab",
+        "name": "Tab 1",
+        "icon": "dashboard",
+        "order": 1
+    }
+]
