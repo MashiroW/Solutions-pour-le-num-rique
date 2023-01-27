@@ -85,7 +85,9 @@ Nous avons décodé les données AVANT de les envoyer sous votre demande car ces
 
 Voici à quoi ressemblaient depuis MQTTExplorer les données lorsqu'elles sont encodées:
 
-Une ceci fait, à défaut d'avoir un RIO fonctionnel en classe vers lequel envoyer nos données via MQTT, nous choisirons de renvoyer au même broker les informations dans le format SparkplugB.
+![image](https://user-images.githubusercontent.com/47890166/215106710-c6fff1b2-4e2d-4aba-8488-34fdc9003ebf.png)
+
+Une fois ceci fait, à défaut d'avoir un RIO fonctionnel en classe vers lequel envoyer nos données via MQTT, nous choisirons de renvoyer au même broker les informations dans le format SparkplugB.
 
 ![image](https://user-images.githubusercontent.com/47890166/215102052-c5819ec3-0aaf-4206-9435-3c17504130f1.png)
 
